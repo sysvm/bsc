@@ -2023,7 +2023,7 @@ func (bc *BlockChain) insertChain(chain types.Blocks, setHead bool) (int, error)
 			go throwaway.TriePrefetchInAdvance(block, signer)
 		}
 
-		//Process block using the parent state as reference point
+		// Process block using the parent state as reference point
 		if bc.pipeCommit {
 			statedb.EnablePipeCommit()
 		}
@@ -2822,13 +2822,13 @@ func (bc *BlockChain) indexBlocks(tail *uint64, head uint64, done chan struct{})
 		return
 	}
 	// Update the transaction index to the new chain state
-	if head-bc.txLookupLimit+1 < *tail {
-		// Reindex a part of missing indices and rewind index tail to HEAD-limit
-		rawdb.IndexTransactions(bc.db, head-bc.txLookupLimit+1, *tail, bc.quit)
-	} else {
-		// Unindex a part of stale indices and forward index tail to HEAD-limit
-		rawdb.UnindexTransactions(bc.db, *tail, head-bc.txLookupLimit+1, bc.quit)
-	}
+	// if head-bc.txLookupLimit+1 < *tail {
+	// 	// Reindex a part of missing indices and rewind index tail to HEAD-limit
+	// 	rawdb.IndexTransactions(bc.db, head-bc.txLookupLimit+1, *tail, bc.quit)
+	// } else {
+	// 	// Unindex a part of stale indices and forward index tail to HEAD-limit
+	// 	rawdb.UnindexTransactions(bc.db, *tail, head-bc.txLookupLimit+1, bc.quit)
+	// }
 }
 
 // maintainTxIndex is responsible for the construction and deletion of the
